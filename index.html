@@ -1,34 +1,42 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Awesome Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<div class="logo">
-  <svg width="100" height="100" viewBox="0 0 200 200"
-       xmlns="http://www.w3.org/2000/svg">
-    <circle cx="100" cy="100" r="94" fill="#064e3b"/>
-    <circle cx="100" cy="100" r="85" fill="#ffffff"/>
-    <circle cx="100" cy="100" r="78"
-            fill="none" stroke="#d4a017" stroke-width="4"/>
-    <path d="M35 80 Q100 15 165 80"
-          fill="#064e3b"/>
-    <text x="100" y="61" font-size="17"
-          fill="white" text-anchor="middle"
-          font-weight="bold">ইসলামপুর</text>
-    <path d="M100 75 L100 105"
-          stroke="#d4a017" stroke-width="3"/>
-    <path d="M55 105 Q77 92 100 105
-             Q123 92 145 105 L145 137
-             Q122 125 100 139
-             Q78 125 55 137 Z"
-          fill="#ffffff" stroke="#064e3b" stroke-width="3"/>
-    <path d="M100 105 L100 139"
-          stroke="#064e3b" stroke-width="2"/>
-    <path d="M70 110 L90 110 M110 110 L130 110"
-          stroke="#d4a017" stroke-width="2"/>
-    <text x="100" y="157" font-size="15"
-          fill="#064e3b" text-anchor="middle"
-          font-weight="bold">উচ্চ বিদ্যালয়</text>
-    <rect x="66" y="165" width="68" height="19"
-          rx="9" fill="#d4a017"/>
-    <text x="100" y="179" font-size="12"
-          fill="#064e3b" text-anchor="middle"
-          font-weight="bold">ESTD. 1995</text>
-  </svg>
-</div>
+    <header>
+        <h1>আমার ওয়েবসাইট</h1>
+        <nav>
+            <a href="#home">হোম</a>
+            <a href="#about">আমাদের সম্পর্কে</a>
+            <a href="#contact">যোগাযোগ</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h2>স্বাগতম আমার ওয়েবসাইটে!</h2>
+        <p>এটি একটি সুন্দর ও আধুনিক ওয়েবসাইট।</p>
+        <button id="welcomeBtn">ক্লিক করুন</button>
+    </section>
+
+    <section class="about" id="about">
+        <h2>আমাদের সম্পর্কে</h2>
+        <p>আমরা নতুন নতুন ওয়েবসাইট তৈরি করতে ভালোবাসি।</p>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>যোগাযোগ</h2>
+        <p>Email: example@gmail.com</p>
+    </section>
+
+    <footer>
+        <p>© 2026 My Website. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
