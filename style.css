@@ -16,6 +16,11 @@ body {
   line-height: 1.7;
 }
 
+img {
+  display: block;
+  max-width: 100%;
+}
+
 header {
   background: #063b75;
   color: white;
@@ -44,6 +49,7 @@ nav {
 nav a {
   color: white;
   text-decoration: none;
+  font-weight: 500;
 }
 
 nav a:hover {
@@ -56,6 +62,7 @@ nav a:hover {
   color: white;
   border: 0;
   font-size: 25px;
+  cursor: pointer;
 }
 
 .hero {
@@ -68,11 +75,17 @@ nav a:hover {
   color: white;
   background:
     linear-gradient(#00234bcc, #00234bcc),
-    url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600") center/cover;
+    url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600")
+    center/cover no-repeat;
+}
+
+.hero-content {
+  max-width: 800px;
 }
 
 .hero h1 {
   font-size: clamp(32px, 5vw, 50px);
+  line-height: 1.4;
 }
 
 .hero h2 {
@@ -113,7 +126,8 @@ nav a:hover {
   padding: 65px 0;
 }
 
-.light, .about {
+.light,
+.about {
   background: white;
 }
 
@@ -133,7 +147,18 @@ nav a:hover {
 
 .about-grid img {
   width: 100%;
+  height: 320px;
+  object-fit: cover;
   border-radius: 12px;
+}
+
+.about-grid h3 {
+  color: #063b75;
+  margin-bottom: 12px;
+}
+
+.about-grid p {
+  margin-bottom: 12px;
 }
 
 .cards {
@@ -164,6 +189,14 @@ nav a:hover {
   margin: 10px 0;
 }
 
+.card img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
 .principal {
   background: #eaf2fc;
   text-align: center;
@@ -176,6 +209,7 @@ nav a:hover {
 
 .principal h3 {
   margin-top: 20px;
+  color: #063b75;
 }
 
 .notice-list {
@@ -188,6 +222,10 @@ nav a:hover {
 .notice-item {
   padding: 15px 5px;
   border-bottom: 1px solid #eee;
+}
+
+.notice-item:last-child {
+  border-bottom: none;
 }
 
 .notice-item h3 {
@@ -220,7 +258,10 @@ footer {
 
 footer a {
   color: #ffd166;
+  text-decoration: none;
 }
+
+/* Admin panel */
 
 .admin-container {
   padding: 40px 0 70px;
@@ -239,7 +280,8 @@ footer a {
   margin-bottom: 15px;
 }
 
-input, textarea {
+input,
+textarea {
   width: 100%;
   padding: 12px;
   margin: 8px 0;
@@ -262,7 +304,8 @@ textarea {
   overflow-wrap: anywhere;
 }
 
-.delete-btn, .danger-btn {
+.delete-btn,
+.danger-btn {
   background: #dc3545;
   color: white;
   border: 0;
@@ -270,6 +313,7 @@ textarea {
   border-radius: 6px;
   cursor: pointer;
   margin-top: 10px;
+  font-family: inherit;
 }
 
 .danger-btn {
@@ -281,6 +325,7 @@ textarea {
   color: #725600;
   padding: 12px;
   border-radius: 8px;
+  margin-bottom: 15px;
 }
 
 .empty {
@@ -289,9 +334,40 @@ textarea {
   color: #777;
 }
 
+.admin-btn {
+  background: #063b75;
+  color: white;
+  border: 0;
+  padding: 12px 22px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.admin-btn:hover {
+  background: #09539e;
+}
+
+/* Mobile responsive */
+
+@media(max-width: 900px) {
+  header {
+    padding: 15px 4%;
+  }
+
+  nav {
+    gap: 12px;
+  }
+}
+
 @media(max-width: 700px) {
   header {
     padding: 12px 5%;
+  }
+
+  .logo {
+    font-size: 18px;
   }
 
   .menu-btn {
@@ -309,8 +385,16 @@ textarea {
     display: flex;
   }
 
+  nav a {
+    padding: 5px 0;
+  }
+
   .about-grid {
     grid-template-columns: 1fr;
+  }
+
+  .about-grid img {
+    height: 240px;
   }
 
   .container {
@@ -319,6 +403,15 @@ textarea {
 
   .hero {
     min-height: 390px;
+    padding: 55px 5%;
+  }
+
+  .hero h2 {
+    font-size: 18px;
+  }
+
+  .hero p {
+    font-size: 16px;
   }
 
   .section {
@@ -327,5 +420,19 @@ textarea {
 
   .section-title {
     font-size: 26px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 400px) {
+  .gallery {
+    grid-template-columns: 1fr;
   }
 }
