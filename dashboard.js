@@ -1,20 +1,8 @@
-```javascript
-// ========================================
-// ইসলামপুর উচ্চ বিদ্যালয়
-// Admin Dashboard
-// ========================================
-
-// Admin login check
 const isLoggedIn = sessionStorage.getItem("adminLoggedIn");
 
 if (isLoggedIn !== "true") {
     window.location.href = "login.html";
 }
-
-
-// ========================================
-// Admin Information
-// ========================================
 
 const userName = document.getElementById("userName");
 const userRole = document.getElementById("userRole");
@@ -33,77 +21,49 @@ if (userEmail) {
     userEmail.textContent = "User ID: admin";
 }
 
-
-// ========================================
-// Logout
-// ========================================
-
 const logoutBtn = document.getElementById("logoutBtn");
 
 if (logoutBtn) {
-
     logoutBtn.addEventListener("click", function (e) {
-
         e.preventDefault();
 
         sessionStorage.removeItem("adminLoggedIn");
 
         window.location.href = "login.html";
-
     });
-
 }
-
-
-// ========================================
-// Notice System
-// ========================================
 
 const noticeForm = document.getElementById("noticeForm");
 const noticeTitle = document.getElementById("noticeTitle");
-const noticeDescription =
-    document.getElementById("noticeDescription");
-
+const noticeDescription = document.getElementById("noticeDescription");
 const noticeList = document.getElementById("noticeList");
 
-
-// Get notices
 function getNotices() {
+    const savedNotices = localStorage.getItem("schoolNotices");
 
-    const notices =
-        localStorage.getItem("schoolNotices");
-
-    if (!notices) {
+    if (!savedNotices) {
         return [];
     }
 
     try {
-
-        return JSON.parse(notices);
-
+        return JSON.parse(savedNotices);
     } catch (error) {
-
         return [];
-
     }
-
 }
 
-
-// Save notices
 function saveNotices(notices) {
-
     localStorage.setItem(
         "schoolNotices",
         JSON.stringify(notices)
     );
-
 }
 
-
-// ========================================
-// Show Notices
-// ========================================
+function escapeHTML(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+}
 
 function displayNotices() {
 
@@ -126,16 +86,13 @@ function displayNotices() {
         return;
     }
 
-
     notices.forEach(function (notice, index) {
 
-        const noticeBox =
-            document.createElement("div");
+        const noticeBox = document.createElement("div");
 
         noticeBox.className = "notice";
 
         noticeBox.innerHTML = `
-
             <h3>
                 📢 ${escapeHTML(notice.title)}
             </h3>
@@ -156,18 +113,13 @@ function displayNotices() {
                 data-index="${index}">
                 🗑️ নোটিশ মুছুন
             </button>
-
         `;
 
         noticeList.appendChild(noticeBox);
-
     });
 
-
-    // Delete buttons
     const deleteButtons =
         document.querySelectorAll(".delete-notice");
-
 
     deleteButtons.forEach(function (button) {
 
@@ -176,17 +128,13 @@ function displayNotices() {
             const index =
                 Number(button.dataset.index);
 
-
-            const confirmDelete =
-                confirm(
-                    "আপনি কি এই নোটিশটি মুছে ফেলতে চান?"
-                );
-
+            const confirmDelete = confirm(
+                "আপনি কি এই নোটিশটি মুছে ফেলতে চান?"
+            );
 
             if (!confirmDelete) {
                 return;
             }
-
 
             const notices = getNotices();
 
@@ -196,24 +144,13 @@ function displayNotices() {
 
             displayNotices();
 
-
             if (statusMessage) {
-
                 statusMessage.textContent =
                     "নোটিশ সফলভাবে মুছে ফেলা হয়েছে।";
-
             }
-
         });
-
     });
-
 }
-
-
-// ========================================
-// Add New Notice
-// ========================================
 
 if (noticeForm) {
 
@@ -223,13 +160,11 @@ if (noticeForm) {
 
             e.preventDefault();
 
-
             const title =
                 noticeTitle.value.trim();
 
             const description =
                 noticeDescription.value.trim();
-
 
             if (!title || !description) {
 
@@ -240,12 +175,9 @@ if (noticeForm) {
                 return;
             }
 
-
             const notices = getNotices();
 
-
             const now = new Date();
-
 
             const date =
                 now.toLocaleDateString(
@@ -257,62 +189,26 @@ if (noticeForm) {
                     }
                 );
 
-
             const newNotice = {
-
                 title: title,
-
                 description: description,
-
                 date: date
-
             };
-
 
             notices.unshift(newNotice);
 
-
             saveNotices(notices);
-
 
             noticeForm.reset();
 
-
             displayNotices();
 
-
             if (statusMessage) {
-
                 statusMessage.textContent =
                     "✅ নোটিশ সফলভাবে প্রকাশ করা হয়েছে।";
-
             }
-
         }
     );
-
 }
-
-
-// ========================================
-// নিরাপদভাবে HTML Text দেখানো
-// ========================================
-
-function escapeHTML(text) {
-
-    const div =
-        document.createElement("div");
-
-    div.textContent = text;
-
-    return div.innerHTML;
-
-}
-
-
-// ========================================
-// প্রথমবার নোটিশ দেখানো
-// ========================================
 
 displayNotices();
-```
