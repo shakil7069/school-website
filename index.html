@@ -4,334 +4,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="আমাদের বিদ্যালয়ের অফিসিয়াল ওয়েবসাইট।">
-  <title>School Official Website</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta name="description" content="ইসলামপুর উচ্চ বিদ্যালয়ের অফিসিয়াল ওয়েবসাইট">
+  <title>ইসলামপুর উচ্চ বিদ্যালয়</title>
+  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Hind Siliguri', sans-serif;
-      color: #243047;
-      background: #f7f9fc;
-      line-height: 1.7;
-    }
-
-    header {
-      background: #063b75;
-      color: white;
-      padding: 16px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .logo {
-      font-size: 23px;
-      font-weight: 700;
-    }
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    nav a:hover {
-      color: #ffd166;
-    }
-
-    .hero {
-      min-height: 440px;
-      padding: 90px 8%;
-      color: white;
-      text-align: center;
-      background:
-        linear-gradient(rgba(0,35,75,.78), rgba(0,35,75,.78)),
-        url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero h1 {
-      font-size: clamp(30px, 5vw, 48px);
-      margin-bottom: 15px;
-    }
-
-    .hero p {
-      font-size: 18px;
-      max-width: 650px;
-    }
-
-    .btn {
-      display: inline-block;
-      background: #ffbd35;
-      color: #172b48;
-      padding: 12px 28px;
-      margin-top: 24px;
-      border-radius: 7px;
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .container {
-      width: 86%;
-      max-width: 1150px;
-      margin: auto;
-    }
-
-    section {
-      padding: 65px 0;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 30px;
-      color: #063b75;
-      margin-bottom: 35px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 22px;
-    }
-
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,.06);
-      text-align: center;
-    }
-
-    .card .emoji {
-      font-size: 38px;
-    }
-
-    .card h3 {
-      color: #063b75;
-      margin: 10px 0;
-    }
-
-    .about {
-      background: white;
-    }
-
-    .about-content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      align-items: center;
-      gap: 35px;
-    }
-
-    .about-content img {
-      width: 100%;
-      border-radius: 12px;
-    }
-
-    .notice {
-      background: white;
-      border-radius: 10px;
-      padding: 25px;
-      box-shadow: 0 5px 20px rgba(0,0,0,.05);
-    }
-
-    .notice p {
-      padding: 12px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .principal {
-      background: #eaf2fc;
-      text-align: center;
-    }
-
-    .principal p {
-      max-width: 750px;
-      margin: auto;
-    }
-
-    .contact {
-      background: white;
-      text-align: center;
-    }
-
-    footer {
-      background: #062d59;
-      color: white;
-      text-align: center;
-      padding: 25px;
-    }
-
-    @media(max-width: 600px) {
-      header {
-        justify-content: center;
-      }
-
-      nav {
-        justify-content: center;
-        gap: 12px;
-      }
-
-      .hero {
-        padding: 65px 6%;
-      }
-
-      .container {
-        width: 90%;
-      }
-    }
-  </style>
 </head>
+<body data-page="home">
 
-<body>
+<header>
+  <div class="logo">🏫 ইসলামপুর উচ্চ বিদ্যালয়</div>
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+  <nav id="navigation">
+    <a href="#home">হোম</a>
+    <a href="#about">পরিচিতি</a>
+    <a href="#teachers">শিক্ষকমণ্ডলী</a>
+    <a href="#notices">নোটিশ</a>
+    <a href="#results">ফলাফল</a>
+    <a href="#gallery">গ্যালারি</a>
+    <a href="#contact">যোগাযোগ</a>
+  </nav>
+</header>
 
-  <header>
-    <div class="logo">🏫 School Website</div>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>ইসলামপুর উচ্চ বিদ্যালয়</h1>
+    <h2>ISLAMPUR HIGH SCHOOL</h2>
+    <p>শিক্ষা, শৃঙ্খলা ও নৈতিকতার মাধ্যমে সুন্দর ভবিষ্যৎ গড়াই আমাদের লক্ষ্য।</p>
+    <a href="#about" class="btn">আমাদের সম্পর্কে জানুন</a>
+  </div>
+</section>
 
-    <nav>
-      <a href="#home">হোম</a>
-      <a href="#about">পরিচিতি</a>
-      <a href="#facilities">সুবিধা</a>
-      <a href="#notice">নোটিশ</a>
-      <a href="#contact">যোগাযোগ</a>
-    </nav>
-  </header>
-
-  <section class="hero" id="home">
-    <h1>আমাদের বিদ্যালয়ে স্বাগতম</h1>
-    <p>
-      শিক্ষা, শৃঙ্খলা ও নৈতিকতার মাধ্যমে
-      একটি সুন্দর ভবিষ্যৎ গড়াই আমাদের লক্ষ্য।
-    </p>
-    <a href="#about" class="btn">আরও জানুন</a>
-  </section>
-
-  <section class="about" id="about">
-    <div class="container">
-      <h2 class="section-title">বিদ্যালয় পরিচিতি</h2>
-
-      <div class="about-content">
-        <div>
-          <h2>আমাদের বিদ্যালয়</h2>
-          <p>
-            আমাদের বিদ্যালয় একটি আদর্শ শিক্ষাপ্রতিষ্ঠান।
-            এখানে শিক্ষার্থীদের মানসম্মত শিক্ষা,
-            নৈতিকতা, শৃঙ্খলা ও সৃজনশীলতার বিকাশে
-            গুরুত্ব দেওয়া হয়।
-          </p>
-        </div>
-
-        <img
-          src="https://images.unsplash.com/photo-1562774053-701939374585?w=900"
-          alt="School building">
-      </div>
-    </div>
-  </section>
-
-  <section id="facilities">
-    <div class="container">
-      <h2 class="section-title">আমাদের সুবিধাসমূহ</h2>
-
-      <div class="cards">
-        <div class="card">
-          <div class="emoji">📚</div>
-          <h3>মানসম্মত শিক্ষা</h3>
-          <p>আধুনিক ও মানসম্মত শিক্ষার পরিবেশ।</p>
-        </div>
-
-        <div class="card">
-          <div class="emoji">💻</div>
-          <h3>কম্পিউটার ল্যাব</h3>
-          <p>প্রযুক্তিনির্ভর শিক্ষার সুযোগ।</p>
-        </div>
-
-        <div class="card">
-          <div class="emoji">⚽</div>
-          <h3>খেলাধুলা</h3>
-          <p>শারীরিক ও মানসিক বিকাশের সুযোগ।</p>
-        </div>
-
-        <div class="card">
-          <div class="emoji">📖</div>
-          <h3>লাইব্রেরি</h3>
-          <p>জ্ঞান অর্জনের জন্য বই পড়ার সুযোগ।</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="principal">
-    <div class="container">
-      <h2 class="section-title">প্রধান শিক্ষকের বাণী</h2>
-      <p>
-        শিক্ষাই জাতির মেরুদণ্ড। আমাদের লক্ষ্য হলো
-        শিক্ষার্থীদের সুশিক্ষায় শিক্ষিত করে
-        আদর্শ মানুষ হিসেবে গড়ে তোলা।
-      </p>
-      <h3 style="margin-top:20px;">প্রধান শিক্ষক</h3>
-    </div>
-  </section>
-
-  <section id="notice">
-    <div class="container">
-      <h2 class="section-title">নোটিশ বোর্ড</h2>
-
-      <div class="notice">
-        <p>📢 নতুন নোটিশ এখানে প্রকাশ করা হবে।</p>
-        <p>📢 পরীক্ষার সময়সূচি এখানে প্রকাশ করা হবে।</p>
-        <p>📢 ভর্তি সংক্রান্ত বিজ্ঞপ্তি এখানে প্রকাশ করা হবে।</p>
-      </div>
-    </div>
-  </section>
-
-  
-<section class="contact" id="contact">
+<section id="about" class="section">
   <div class="container">
-    <h2 class="section-title">যোগাযোগ করুন</h2>
-
-    <div class="cards">
-      <div class="card">
-        <div class="emoji">🏫</div>
-        <h3>বিদ্যালয়ের নাম</h3>
-        <p>ইসলামপুর উচ্চ বিদ্যালয়</p>
-        <p>ISLAMPUR HIGH SCHOOL</p>
+    <h2 class="section-title">বিদ্যালয় পরিচিতি</h2>
+    <div class="about-grid">
+      <div>
+        <h3>আমাদের বিদ্যালয়</h3>
+        <p>ইসলামপুর উচ্চ বিদ্যালয় একটি শিক্ষাপ্রতিষ্ঠান। শিক্ষার্থীদের মানসম্মত শিক্ষা, নৈতিকতা, শৃঙ্খলা ও সৃজনশীলতার বিকাশে আমরা গুরুত্ব দিয়ে থাকি।</p>
+        <p>আমাদের লক্ষ্য শিক্ষার্থীদের আদর্শ ও দক্ষ নাগরিক হিসেবে গড়ে তোলা।</p>
       </div>
-
-      <div class="card">
-        <div class="emoji">📍</div>
-        <h3>ঠিকানা</h3>
-        <p>উপজেলা: নাঙ্গলকোট</p>
-        <p>জেলা: কুমিল্লা</p>
-        <p>বাংলাদেশ</p>
-      </div>
-
-      <div class="card">
-        <div class="emoji">📞</div>
-        <h3>যোগাযোগ</h3>
-        <p>ফোন নম্বর শীঘ্রই যুক্ত করা হবে</p>
-      </div>
+      <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=900" alt="বিদ্যালয় ভবন">
     </div>
   </div>
 </section>
+
+<section class="section light" id="facilities">
+  <div class="container">
+    <h2 class="section-title">আমাদের সুবিধাসমূহ</h2>
+    <div class="cards">
+      <article class="card"><div class="emoji">📚</div><h3>মানসম্মত শিক্ষা</h3><p>আধুনিক শিক্ষার পরিবেশ।</p></article>
+      <article class="card"><div class="emoji">💻</div><h3>কম্পিউটার ল্যাব</h3><p>প্রযুক্তিনির্ভর শিক্ষার সুযোগ।</p></article>
+      <article class="card"><div class="emoji">⚽</div><h3>খেলাধুলা</h3><p>শারীরিক ও মানসিক বিকাশ।</p></article>
+      <article class="card"><div class="emoji">📖</div><h3>লাইব্রেরি</h3><p>বই পড়ার সুন্দর পরিবেশ।</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="teachers">
+  <div class="container">
+    <h2 class="section-title">আমাদের শিক্ষকমণ্ডলী</h2>
+    <div class="cards" id="teacherList"></div>
+  </div>
+</section>
+
+<section class="section light" id="notices">
+  <div class="container">
+    <h2 class="section-title">নোটিশ বোর্ড</h2>
+    <div class="notice-list" id="noticeList"></div>
+  </div>
+</section>
+
+<section class="section" id="results">
+  <div class="container">
+    <h2 class="section-title">পরীক্ষার ফলাফল</h2>
+    <div class="cards" id="resultList"></div>
+  </div>
+</section>
+
+<section class="section light" id="gallery">
+  <div class="container">
+    <h2 class="section-title">ছবি গ্যালারি</h2>
+    <div class="gallery" id="galleryList"></div>
+  </div>
+</section>
+
+<section class="section principal">
+  <div class="container">
+    <h2 class="section-title">প্রধান শিক্ষকের বাণী</h2>
+    <p>শিক্ষাই জাতির মেরুদণ্ড। আমাদের লক্ষ্য শিক্ষার্থীদের সুশিক্ষায় শিক্ষিত করে আদর্শ মানুষ হিসেবে গড়ে তোলা।</p>
+    <h3>প্রধান শিক্ষক</h3>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container">
+    <h2 class="section-title">যোগাযোগ করুন</h2>
+    <div class="cards">
+      <article class="card"><div class="emoji">🏫</div><h3>বিদ্যালয়ের নাম</h3><p>ইসলামপুর উচ্চ বিদ্যালয়</p><p>ISLAMPUR HIGH SCHOOL</p></article>
+      <article class="card"><div class="emoji">📍</div><h3>ঠিকানা</h3><p>উপজেলা: নাঙ্গলকোট</p><p>জেলা: কুমিল্লা</p><p>বাংলাদেশ</p></article>
+      <article class="card"><div class="emoji">📞</div><h3>যোগাযোগ</h3><p>ফোন নম্বর শীঘ্রই যুক্ত করা হবে</p></article>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© <span id="year"></span> ইসলামপুর উচ্চ বিদ্যালয়। সর্বস্বত্ব সংরক্ষিত।</p>
+  <a href="admin.html">অ্যাডমিন প্যানেল</a>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
