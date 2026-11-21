@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>অ্যাডমিন প্যানেল - ইসলামপুর উচ্চ বিদ্যালয়</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="admin">
+
+<header>
+  <div class="logo">⚙️ অ্যাডমিন প্যানেল</div>
+  <nav><a href="index.html">মূল ওয়েবসাইট</a></nav>
+</header>
+
+<main class="container admin-container">
+  <h1 class="section-title">ওয়েবসাইট পরিচালনা</h1>
+  <p class="warning">এই প্যানেলটি স্থানীয় ব্রাউজারের তথ্য পরিবর্তন করে। এটি নিরাপদ অনলাইন লগইন ব্যবস্থা নয়।</p>
+
+  <section class="admin-box">
+    <h2>📢 নতুন নোটিশ যোগ করুন</h2>
+    <form id="noticeForm">
+      <input id="noticeTitle" placeholder="নোটিশের শিরোনাম" required>
+      <textarea id="noticeText" placeholder="নোটিশের বিস্তারিত লিখুন" required></textarea>
+      <button class="btn" type="submit">নোটিশ প্রকাশ করুন</button>
+    </form>
+    <div id="adminNotices"></div>
+  </section>
+
+  <section class="admin-box">
+    <h2>👨‍🏫 শিক্ষক যোগ করুন</h2>
+    <form id="teacherForm">
+      <input id="teacherName" placeholder="শিক্ষকের নাম" required>
+      <input id="teacherSubject" placeholder="পদবি / বিষয়" required>
+      <input id="teacherImage" type="url" placeholder="ছবির URL (ঐচ্ছিক)">
+      <button class="btn" type="submit">শিক্ষক যোগ করুন</button>
+    </form>
+    <div id="adminTeachers"></div>
+  </section>
+
+  <section class="admin-box">
+    <h2>📊 পরীক্ষার ফলাফল যোগ করুন</h2>
+    <form id="resultForm">
+      <input id="resultTitle" placeholder="পরীক্ষার নাম ও সাল" required>
+      <input id="resultLink" type="url" placeholder="ফলাফলের ওয়েব লিংক (ঐচ্ছিক)">
+      <button class="btn" type="submit">ফলাফল প্রকাশ করুন</button>
+    </form>
+    <div id="adminResults"></div>
+  </section>
+
+  <section class="admin-box">
+    <h2>🖼️ গ্যালারিতে ছবি যোগ করুন</h2>
+    <form id="galleryForm">
+      <input id="galleryImage" type="url" placeholder="ছবির URL" required>
+      <input id="galleryCaption" placeholder="ছবির বিবরণ">
+      <button class="btn" type="submit">ছবি যোগ করুন</button>
+    </form>
+    <div id="adminGallery"></div>
+  </section>
+
+  <button id="resetData" class="danger-btn">সব স্থানীয় তথ্য মুছে ফেলুন</button>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
