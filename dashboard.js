@@ -1,238 +1,318 @@
+```javascript
+// ========================================
+// ইসলামপুর উচ্চ বিদ্যালয়
+// Admin Dashboard
+// ========================================
 
-import { auth, db } from "./firebase.js";
+// Admin login check
+const isLoggedIn = sessionStorage.getItem("adminLoggedIn");
 
-import {
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-
-import {
-  doc,
-  getDoc,
-  collection,
-  addDoc,
-  getDocs,
-  updateDoc,
-  deleteDoc,
-  query,
-  orderBy,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-
-const $ = id => document.getElementById(id);
-
-let currentUser = null;
-let currentRole = null;
-
-function message(text) {
-  $("statusMessage").textContent = text;
+if (isLoggedIn !== "true") {
+    window.location.href = "login.html";
 }
 
-function safeText(value) {
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;"
-  })[c]);
+
+// ========================================
+// Admin Information
+// ========================================
+
+const userName = document.getElementById("userName");
+const userRole = document.getElementById("userRole");
+const userEmail = document.getElementById("userEmail");
+const statusMessage = document.getElementById("statusMessage");
+
+if (userName) {
+    userName.textContent = "অ্যাডমিন";
 }
 
-// Check authentication and role
-onAuthStateChanged(auth, async user => {
-  if (!user) {
-    location.replace("login.html");
-    return;
-  }
+if (userRole) {
+    userRole.textContent = "ভূমিকা: প্রধান অ্যাডমিন";
+}
 
-  try {
-    const userRef = doc(db, "users", user.uid);
-    const userSnap = await getDoc(userRef);
+if (userEmail) {
+    userEmail.textContent = "User ID: admin";
+}
 
-    if (!userSnap.exists()) {
-      await signOut(auth);
-      location.replace("login.html");
-      return;
-    }
 
-    const profile = userSnap.data();
+// ========================================
+// Logout
+// ========================================
 
-    if (
-      !["admin", "teacher"].includes(profile.role) ||
-      profile.active !== true
-    ) {
-      await signOut(auth);
-      location.replace("login.html");
-      return;
-    }
+const logoutBtn = document.getElementById("logoutBtn");
 
-    currentUser = user;
-    currentRole = profile.role;
+if (logoutBtn) {
 
-    $("userName").textContent =
-      profile.name || user.displayName || "ব্যবহারকারী";
+    logoutBtn.addEventListener("click", function (e) {
 
-    $("userEmail").textContent = user.email;
+        e.preventDefault();
 
-    $("userRole").textContent =
-      currentRole === "admin"
-        ? "ভূমিকা: প্রধান অ্যাডমিন"
-        : "ভূমিকা: শিক্ষক";
+        sessionStorage.removeItem("adminLoggedIn");
 
-    if (currentRole === "admin") {
-      $("adminTools").hidden = false;
-      await loadUsers();
-    }
+        window.location.href = "login.html";
 
-    await loadNotices();
-
-  } catch (error) {
-    console.error(error);
-    message("ডাটা লোড করা যায়নি। অনুমতি ও সংযোগ পরীক্ষা করুন।");
-  }
-});
-
-// Submit notice
-$("noticeForm").addEventListener("submit", async e => {
-  e.preventDefault();
-
-  if (!currentUser) return;
-
-  const title = $("noticeTitle").value.trim();
-  const description = $("noticeDescription").value.trim();
-
-  if (!title || !description) return;
-
-  try {
-    await addDoc(collection(db, "notices"), {
-      title,
-      description,
-      createdBy: currentUser.uid,
-      published: currentRole === "admin",
-      createdAt: serverTimestamp()
     });
 
-    $("noticeForm").reset();
+}
 
-    message(
-      currentRole === "admin"
-        ? "নোটিশ প্রকাশ করা হয়েছে।"
-        : "নোটিশ অ্যাডমিনের অনুমোদনের জন্য জমা হয়েছে।"
+
+// ========================================
+// Notice System
+// ========================================
+
+const noticeForm = document.getElementById("noticeForm");
+const noticeTitle = document.getElementById("noticeTitle");
+const noticeDescription =
+    document.getElementById("noticeDescription");
+
+const noticeList = document.getElementById("noticeList");
+
+
+// Get notices
+function getNotices() {
+
+    const notices =
+        localStorage.getItem("schoolNotices");
+
+    if (!notices) {
+        return [];
+    }
+
+    try {
+
+        return JSON.parse(notices);
+
+    } catch (error) {
+
+        return [];
+
+    }
+
+}
+
+
+// Save notices
+function saveNotices(notices) {
+
+    localStorage.setItem(
+        "schoolNotices",
+        JSON.stringify(notices)
     );
 
-    await loadNotices();
-
-  } catch (error) {
-    console.error(error);
-    message("নোটিশ জমা দেওয়া যায়নি।");
-  }
-});
-
-// Load notices
-async function loadNotices() {
-  const list = $("noticeList");
-
-  const q = query(
-    collection(db, "notices"),
-    orderBy("createdAt", "desc")
-  );
-
-  const snapshot = await getDocs(q);
-
-  if (snapshot.empty) {
-    list.innerHTML = '<p class="empty">এখনো কোনো নোটিশ নেই।</p>';
-    return;
-  }
-
-  list.innerHTML = snapshot.docs.map(item => {
-    const data = item.data();
-
-    const controls = currentRole === "admin"
-      ? `
-        <button class="admin-btn"
-          data-action="publish"
-          data-id="${safeText(item.id)}"
-          data-value="${data.published ? "false" : "true"}">
-          ${data.published ? "প্রকাশ বন্ধ" : "প্রকাশ করুন"}
-        </button>
-        <button class="delete-btn"
-          data-action="delete"
-          data-id="${safeText(item.id)}">
-          মুছে ফেলুন
-        </button>
-      `
-      : `<small>অ্যাডমিনের অনুমোদনাধীন</small>`;
-
-    return `
-      <div class="admin-item">
-        <h3>${safeText(data.title)}</h3>
-        <p>${safeText(data.description)}</p>
-        <p>অবস্থা: ${data.published ? "প্রকাশিত" : "অপ্রকাশিত"}</p>
-        ${controls}
-      </div>
-    `;
-  }).join("");
 }
 
-// Admin notice controls
-$("noticeList").addEventListener("click", async e => {
-  const button = e.target.closest("button[data-action]");
 
-  if (!button || currentRole !== "admin") return;
+// ========================================
+// Show Notices
+// ========================================
 
-  const id = button.dataset.id;
-  const action = button.dataset.action;
+function displayNotices() {
 
-  try {
-    const ref = doc(db, "notices", id);
-
-    if (action === "publish") {
-      await updateDoc(ref, {
-        published: button.dataset.value === "true"
-      });
+    if (!noticeList) {
+        return;
     }
 
-    if (action === "delete") {
-      if (!confirm("নোটিশটি মুছে ফেলবেন?")) return;
-      await deleteDoc(ref);
+    const notices = getNotices();
+
+    noticeList.innerHTML = "";
+
+    if (notices.length === 0) {
+
+        noticeList.innerHTML = `
+            <div class="notice">
+                <p>এখনো কোনো নোটিশ প্রকাশ করা হয়নি।</p>
+            </div>
+        `;
+
+        return;
     }
 
-    await loadNotices();
 
-  } catch (error) {
-    console.error(error);
-    message("কাজটি সম্পন্ন হয়নি।");
-  }
-});
+    notices.forEach(function (notice, index) {
 
-// Admin user list
-async function loadUsers() {
-  if (currentRole !== "admin") return;
+        const noticeBox =
+            document.createElement("div");
 
-  const snapshot = await getDocs(collection(db, "users"));
+        noticeBox.className = "notice";
 
-  $("userList").innerHTML = snapshot.docs.map(item => {
-    const data = item.data();
+        noticeBox.innerHTML = `
 
-    return `
-      <div class="admin-item">
-        <strong>${safeText(data.name || "নাম নেই")}</strong>
-        <p>${safeText(data.email || "")}</p>
-        <p>ভূমিকা: ${safeText(data.role)}</p>
-        <p>অবস্থা: ${data.active ? "সক্রিয়" : "বন্ধ"}</p>
-      </div>
-    `;
-  }).join("") || '<p class="empty">কোনো ব্যবহারকারী নেই।</p>';
+            <h3>
+                📢 ${escapeHTML(notice.title)}
+            </h3>
+
+            <p>
+                ${escapeHTML(notice.description)}
+            </p>
+
+            <small>
+                প্রকাশের তারিখ: ${escapeHTML(notice.date)}
+            </small>
+
+            <br><br>
+
+            <button
+                type="button"
+                class="delete-notice"
+                data-index="${index}">
+                🗑️ নোটিশ মুছুন
+            </button>
+
+        `;
+
+        noticeList.appendChild(noticeBox);
+
+    });
+
+
+    // Delete buttons
+    const deleteButtons =
+        document.querySelectorAll(".delete-notice");
+
+
+    deleteButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            const index =
+                Number(button.dataset.index);
+
+
+            const confirmDelete =
+                confirm(
+                    "আপনি কি এই নোটিশটি মুছে ফেলতে চান?"
+                );
+
+
+            if (!confirmDelete) {
+                return;
+            }
+
+
+            const notices = getNotices();
+
+            notices.splice(index, 1);
+
+            saveNotices(notices);
+
+            displayNotices();
+
+
+            if (statusMessage) {
+
+                statusMessage.textContent =
+                    "নোটিশ সফলভাবে মুছে ফেলা হয়েছে।";
+
+            }
+
+        });
+
+    });
+
 }
 
-// Logout
-$("logoutBtn").addEventListener("click", async e => {
-  e.preventDefault();
 
-  try {
-    await signOut(auth);
-    location.replace("login.html");
-  } catch (error) {
-    message("লগআউট করা যায়নি।");
-  }
-});
+// ========================================
+// Add New Notice
+// ========================================
+
+if (noticeForm) {
+
+    noticeForm.addEventListener(
+        "submit",
+        function (e) {
+
+            e.preventDefault();
+
+
+            const title =
+                noticeTitle.value.trim();
+
+            const description =
+                noticeDescription.value.trim();
+
+
+            if (!title || !description) {
+
+                alert(
+                    "নোটিশের শিরোনাম এবং বিস্তারিত লিখুন।"
+                );
+
+                return;
+            }
+
+
+            const notices = getNotices();
+
+
+            const now = new Date();
+
+
+            const date =
+                now.toLocaleDateString(
+                    "bn-BD",
+                    {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
+                    }
+                );
+
+
+            const newNotice = {
+
+                title: title,
+
+                description: description,
+
+                date: date
+
+            };
+
+
+            notices.unshift(newNotice);
+
+
+            saveNotices(notices);
+
+
+            noticeForm.reset();
+
+
+            displayNotices();
+
+
+            if (statusMessage) {
+
+                statusMessage.textContent =
+                    "✅ নোটিশ সফলভাবে প্রকাশ করা হয়েছে।";
+
+            }
+
+        }
+    );
+
+}
+
+
+// ========================================
+// নিরাপদভাবে HTML Text দেখানো
+// ========================================
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+// ========================================
+// প্রথমবার নোটিশ দেখানো
+// ========================================
+
+displayNotices();
+```
