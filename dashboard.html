@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ড্যাশবোর্ড | ইসলামপুর উচ্চ বিদ্যালয়</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">🏫 স্কুল ড্যাশবোর্ড</div>
+  <nav>
+    <a href="index.html">ওয়েবসাইট</a>
+    <a href="#" id="logoutBtn">লগআউট</a>
+  </nav>
+</header>
+
+<main class="admin-container">
+  <div class="container">
+
+    <h1 class="section-title">স্বাগতম</h1>
+
+    <section class="admin-box">
+      <h2 id="userName">লোড হচ্ছে...</h2>
+      <p id="userRole"></p>
+      <p id="userEmail"></p>
+      <p id="statusMessage" role="status"></p>
+    </section>
+
+    <section class="admin-box">
+      <h2>📢 নোটিশ ব্যবস্থাপনা</h2>
+
+      <form id="noticeForm">
+        <input id="noticeTitle"
+          placeholder="নোটিশের শিরোনাম" required>
+
+        <textarea id="noticeDescription"
+          placeholder="নোটিশের বিস্তারিত" required></textarea>
+
+        <button class="admin-btn" type="submit">
+          নোটিশ জমা দিন
+        </button>
+      </form>
+
+      <div id="noticeList"></div>
+    </section>
+
+    <section class="admin-box" id="adminTools" hidden>
+      <h2>⚙️ অ্যাডমিনের বিশেষ সুবিধা</h2>
+      <p>অ্যাকাউন্ট অনুমোদন ও শিক্ষক ব্যবস্থাপনা।</p>
+
+      <h3>অনুমোদিত ব্যবহারকারী</h3>
+      <div id="userList"></div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <p>© ইসলামপুর উচ্চ বিদ্যালয়</p>
+</footer>
+
+<script type="module" src="dashboard.js"></script>
+</body>
+</html>
